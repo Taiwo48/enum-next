@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
     id: 3,
     title: "Invite your team",
     description: "Start collaborating with your team",
-    component: <InviteYourTeam setActiveStep={setActiveStep} />, // ✅ FIXED
+    component: <InviteYourTeam setActiveStep={setActiveStep} activeStep={activeStep} />, // pass activeStep
   },
 ];
 

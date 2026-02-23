@@ -150,11 +150,11 @@ const AddCompany: React.FC<AddCompanyProps> = ({ setActiveStep }) => {
       </main>
 
       {/* STEP INDICATOR */}
-      <div className="flex justify-center gap-4 py-6">
-        <div className="h-1 w-20 rounded-full bg-gray-300"></div>
-        <div className="h-1 w-20 rounded-full bg-blue-600"></div>
-        <div className="h-1 w-20 rounded-full bg-gray-300"></div>
-      </div>
+      <div className="hidden md:flex justify-center gap-4 py-6">
+  <div className="h-1 w-20 rounded-full bg-gray-300"></div>
+  <div className="h-1 w-20 rounded-full bg-blue-600"></div>
+  <div className="h-1 w-20 rounded-full bg-gray-300"></div>
+</div>
     </div>
   );
 };

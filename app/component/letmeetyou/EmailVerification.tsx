@@ -33,7 +33,6 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
     return `${m}:${s}`;
   };
 
-  // Handle input for each digit
   const handleChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
       const newCode = [...code];
@@ -50,12 +49,11 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
     }
   };
 
-  // Verify code
   const handleVerify = () => {
     const enteredCode = code.join("");
     if (enteredCode.length === 6) {
       setError("");
-      setStep(3); // Move to next step (AddCompany)
+      setStep(3); // Move to next step
     } else {
       setError("Please enter the full 6-digit code.");
     }
@@ -64,7 +62,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
   return (
     <div className="w-full min-h-screen flex flex-col bg-white text-gray-800">
       {/* Top Right Login */}
-      <div className="w-full flex justify-end text-sm p-4 sm:p-6 md:p-10">
+      <div className="w-full flex justify-end text-sm p-4 sm:p-6">
         <p>
           Already on Enum?{" "}
           <a href="#" className="font-semibold text-blue-600 hover:underline">
@@ -74,54 +72,53 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
       </div>
 
       {/* Main Card */}
-      <main className="w-full flex-1 flex justify-center items-center">
-        <div
-          className="bg-[#F8FAFC] rounded-xl shadow-sm"
-          style={{ width: "884px", height: "634px" }}
-        >
-          <div className="w-full h-full flex flex-col lg:flex-row items-start justify-center gap-12 px-8 py-10">
-            
+      <main className="w-full flex-1 flex justify-center items-start sm:items-center px-4 sm:px-6 md:px-10 pb-10">
+        <div className="bg-[#F8FAFC] rounded-xl shadow-sm w-full max-w-4xl">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-8 lg:gap-12 px-6 sm:px-8 py-8 sm:py-10">
+
             {/* Left Info Section */}
-            <div className="w-full max-w-md">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <div className="w-full lg:max-w-md">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
                 Let's meet
               </h1>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 you
               </h1>
-              <p className="text-gray-600 mb-8 text-sm md:text-base">
+              <p className="text-gray-600 mb-6 text-sm sm:text-base">
                 Just a few details to get you started — including verifying your
                 email — so we can personalize your setup and unlock the right tools.
               </p>
 
               {/* Step Navigation */}
-              <nav className="hidden md:block space-y-4">
+              <nav className="hidden md:block space-y-2">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="flex items-center p-3 border-l-4 border-transparent text-gray-500 hover:text-blue-600"
+                  className="flex items-center p-2 border-l-4 border-transparent text-gray-500 hover:text-blue-600 hover:border-blue-600 transition"
                 >
                   <span>Basic info</span>
                 </button>
-                <div className="flex items-center p-3 border-l-4 border-blue-600">
-                  <span className="text-blue-600 font-semibold">Email verification</span>
+                <div className="flex items-center p-2 border-l-4 border-blue-600">
+                  <span className="text-blue-600 font-semibold">
+                    Email verification
+                  </span>
                 </div>
               </nav>
             </div>
 
             {/* Right Verification Card */}
-            <div className="w-full max-w-lg bg-white p-6 md:p-8 rounded-xl border border-gray-200 shadow-sm">
-              <h2 className="text-lg md:text-xl font-semibold mb-6">
+            <div className="w-full lg:max-w-lg bg-white p-4 sm:p-6 md:p-8 rounded-xl border border-gray-200 shadow-sm">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6">
                 Email verification
               </h2>
 
-              <p className="text-sm text-black mb-6">
+              <p className="text-sm sm:text-base text-black mb-4 sm:mb-6">
                 Enter the code sent to{" "}
                 <span className="font-medium">{formData.workEmail}</span>.
               </p>
 
               {/* 6-digit Code Inputs */}
-              <div className="flex justify-between gap-2 mb-4">
+              <div className="flex justify-between gap-2 mb-4 sm:mb-6">
                 {code.map((digit, index) => (
                   <input
                     key={index}
@@ -132,7 +129,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       handleChange(index, e.target.value)
                     }
-                    className="w-12 h-12 text-center text-lg border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-10 sm:w-12 h-10 sm:h-12 text-center text-lg sm:text-xl border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                   />
                 ))}
               </div>
@@ -143,12 +140,12 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
               )}
 
               {/* Timer */}
-              <div className="text-sm text-blue-600 font-medium text-center mb-6">
+              <div className="text-sm sm:text-base text-blue-600 font-medium text-center mb-4 sm:mb-6">
                 {formatTime(timer)}
               </div>
 
               {/* Troubleshooting */}
-              <div className="text-sm text-black mb-6">
+              <div className="text-sm sm:text-base text-black mb-4 sm:mb-6">
                 <p className="font-bold mb-2">Didn't receive the email?</p>
                 <ol className="list-decimal list-inside space-y-1">
                   <li>Check spam or promotions.</li>
@@ -158,16 +155,16 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
                 </ol>
               </div>
 
-              <div className="text-sm text-blue-600 hover:underline text-center mb-6">
+              <div className="text-sm sm:text-base text-blue-600 hover:underline text-center mb-4 sm:mb-6">
                 <a href="#">Re-enter your email</a>
               </div>
 
               {/* Verify Button */}
-              <div className="flex justify-end pt-4">
+              <div className="flex justify-end">
                 <button
                   type="button"
                   onClick={handleVerify}
-                  className="text-blue-600 font-bold text-lg hover:underline mr-2"
+                  className="text-blue-600 font-bold text-lg sm:text-xl hover:underline"
                 >
                   Verify
                 </button>
