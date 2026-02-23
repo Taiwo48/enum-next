@@ -18,11 +18,21 @@ const Sidebar: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const steps: Step[] = [
-    { id: 1, title: "Let’s meet you", description: "With your name and work email", component: <LetMeetYou /> },
-    { id: 2, title: "Add company", description: "Create your space on Enum", component: <AddCompany /> },
-    { id: 3, title: "Invite your team", description: "Start collaborating with your team", component: <InviteYourTeam /> },
-  ];
+  const steps: Step[] =  [
+  { id: 1, title: "Let’s meet you", description: "With your name and work email", component: <LetMeetYou /> },
+  {
+    id: 2,
+    title: "Add company",
+    description: "Create your space on Enum",
+    component: <AddCompany setActiveStep={setActiveStep} />,
+  },
+  {
+    id: 3,
+    title: "Invite your team",
+    description: "Start collaborating with your team",
+    component: <InviteYourTeam setActiveStep={setActiveStep} />, // ✅ FIXED
+  },
+];
 
   const activeComponent = steps.find(step => step.id === activeStep)?.component;
 

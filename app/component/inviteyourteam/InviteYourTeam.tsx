@@ -3,14 +3,16 @@
 import React, { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import Dashboard from "../../dashboard/Pages/Dashboard";
-import AddCompany from "../addcompany/AddCompany";
 
-export default function InviteYourTeam() {
+interface InviteTeamProps {
+  setActiveStep: (step: number) => void;
+}
+
+export default function InviteYourTeam({ setActiveStep }: InviteTeamProps) {
   const [emailList, setEmailList] = useState<string[]>([]);
   const [emailInput, setEmailInput] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
-  const [showAddCompany, setShowAddCompany] = useState(false);
 
   const handleAddEmail = () => {
     const newEmails = emailInput
@@ -34,12 +36,10 @@ export default function InviteYourTeam() {
     }
   };
 
-  if (showAddCompany) return <AddCompany />;
   if (showDashboard) return <Dashboard />;
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-12 px-4 md:px-0">
-
       <div
         className="bg-gray-50 rounded-xl shadow-lg w-full md:w-[867px] max-w-full space-y-6"
         style={{ height: "318px", padding: "16px" }}
@@ -47,7 +47,7 @@ export default function InviteYourTeam() {
         <div className="w-full flex items-center justify-between mb-4">
           <button
             type="button"
-            onClick={() => setShowAddCompany(true)}
+            onClick={() => setActiveStep(2)} // ← Go back to AddCompany step
             className="flex items-center text-black text-sm font-medium hover:text-gray-700"
           >
             <IoMdArrowBack className="text-xl" />

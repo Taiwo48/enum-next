@@ -5,10 +5,8 @@ import DetailsStep from "./Details";
 import ShortDescriptionStep from "./ShortDescription";
 import UsagePreferenceStep from "./UsagePreference";
 import LogoStep from "./Logo";
-import LetMeetYou from "../letmeetyou/letmeetyou";
 import { IoMdArrowBack } from "react-icons/io";
 
-/* -------------------- TYPES -------------------- */
 interface FormData {
   companyName: string;
   industry: string;
@@ -17,12 +15,15 @@ interface FormData {
   companySize: string;
   description: string;
   usagePreferences: string[];
-  logo: string | null; // uploaded logo URL
+  logo: string | null;
   logoName: string;
 }
 
-/* -------------------- COMPONENT -------------------- */
-const AddCompany: React.FC = () => {
+interface AddCompanyProps {
+  setActiveStep: (step: number) => void;
+}
+
+const AddCompany: React.FC<AddCompanyProps> = ({ setActiveStep }) => {
   const [form, setForm] = useState<FormData>({
     companyName: "",
     industry: "",
@@ -35,10 +36,8 @@ const AddCompany: React.FC = () => {
     logoName: "",
   });
 
-  const [activeStep, setActiveStep] = useState<string>("Details");
-  const [showLetMeetYou, setShowLetMeetYou] = useState<boolean>(false);
+  const [activeStep, setActiveStepLocal] = useState<string>("Details");
 
-  /* -------------------- HANDLERS -------------------- */
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -50,7 +49,7 @@ const AddCompany: React.FC = () => {
     const steps = ["Details", "Short description", "Usage preference", "Logo"];
     const currentIndex = steps.indexOf(activeStep);
     if (currentIndex < steps.length - 1) {
-      setActiveStep(steps[currentIndex + 1]);
+      setActiveStepLocal(steps[currentIndex + 1]);
     }
   };
 
@@ -64,7 +63,6 @@ const AddCompany: React.FC = () => {
     });
   };
 
-  /* -------------------- STEP CONTENT -------------------- */
   const renderStepContent = () => {
     switch (activeStep) {
       case "Details":
@@ -98,11 +96,6 @@ const AddCompany: React.FC = () => {
     }
   };
 
-  /* -------------------- RENDER -------------------- */
-  if (showLetMeetYou) {
-    return <LetMeetYou />;
-  }
-
   return (
     <div className="w-full min-h-screen flex flex-col bg-white text-gray-800">
       <main className="w-full flex-1 flex justify-center items-center">
@@ -115,7 +108,7 @@ const AddCompany: React.FC = () => {
             <div className="p-6 sm:p-8 border-b md:border-b-0 bg-gray-50">
               <button
                 type="button"
-                onClick={() => setShowLetMeetYou(true)}
+                onClick={() => setActiveStep(1)} // ← FIXED BACK BUTTON
                 className="flex items-center text-black text-sm font-medium mb-4 hover:text-gray-700"
               >
                 <IoMdArrowBack className="text-xl mr-2" />
@@ -134,7 +127,7 @@ const AddCompany: React.FC = () => {
                   (step) => (
                     <li
                       key={step}
-                      onClick={() => setActiveStep(step)}
+                      onClick={() => setActiveStepLocal(step)}
                       className={`cursor-pointer px-3 py-1 border-l-4 ${
                         activeStep === step
                           ? "border-blue-600 text-blue-600 font-semibold bg-blue-50"

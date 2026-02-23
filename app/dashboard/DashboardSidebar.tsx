@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import {
   Home,
   BookOpen,
@@ -17,11 +16,12 @@ import {
   LogOut,
 } from "lucide-react";
 
-// TypeScript props
+// Props for sidebar
 interface DashboardSidebarProps {
-  isOpen: boolean;
+  isOpen: boolean; // controls visibility on mobile
 }
 
+// Props for each item
 interface SidebarItemProps {
   icon: React.ReactNode;
   label: string;
@@ -44,7 +44,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
         z-40
         transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:translate-x-0
+        sm:translate-x-0
       `}
     >
       <nav className="space-y-2">
